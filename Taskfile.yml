@@ -1,0 +1,26 @@
+version: '3'
+
+dotenv:
+  - docker.env
+
+silent: true
+
+vars:
+  service_name: postgres
+
+tasks:
+  default:
+    cmd: task -l
+    desc: List all tasks
+
+  up:
+    cmd: docker compose up -d
+    desc: All docker services are up
+
+  down:
+    cmd: docker compose down
+    desc: All docker services are down
+  
+  up:shell:
+    cmd: docker compose exec -it {{.service_name}} psql -U ${POSTGRES_USER} ${POSTGRES_DB}
+    desc: Connecting with postgres
