@@ -14,7 +14,9 @@ tasks:
     desc: List all tasks
 
   up:
-    cmd: docker compose up -d
+    cmds: 
+    - docker compose up -d
+    - docker ps
     desc: All docker services are up
 
   down:
@@ -24,3 +26,9 @@ tasks:
   up:shell:
     cmd: docker compose exec -it {{.service_name}} psql -U ${POSTGRES_USER} ${POSTGRES_DB}
     desc: Connecting with postgres
+  
+  up:mig:
+    cmds:
+      - npx prisma ${POSTGRES_DB} push
+      - npx prisma generate
+    desc: Migrating with a new schema
